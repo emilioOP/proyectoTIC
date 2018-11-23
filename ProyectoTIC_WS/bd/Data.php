@@ -16,9 +16,7 @@ class Data{
     }
 
     public function prueba(){
-      echo "<conexion>";
-            echo "Conectado";
-      echo "</conexion>";
+      echo "OK";
     }
 
     public function getUsuario($mail, $pass){

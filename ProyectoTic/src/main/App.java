@@ -5,7 +5,6 @@
  */
 package main;
 
-import java.awt.Color;
 import java.awt.Frame;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -31,7 +30,6 @@ import org.jespxml.JespXML;
 import org.jespxml.excepciones.TagHijoNotFoundException;
 import org.jespxml.modelo.Tag;
 import org.xml.sax.SAXException;
-import services.Conectar;
 import services.IngresarEvento;
 import services.IniciarSesion;
 import services.ListarEventos;
@@ -55,12 +53,6 @@ public class App extends javax.swing.JFrame {
     public App() {
         initComponents();
         setLocationRelativeTo(null);
-        
-        try {
-            conectar();
-        } catch (TagHijoNotFoundException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
         cargarTablaEventos(DISPONIBLES);
         cargarTablaEventos(INICIADOS);
         cargarCiudades();
@@ -81,14 +73,32 @@ public class App extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         btnEECrear = new javax.swing.JButton();
         txtIngresarEvento_direccion = new javax.swing.JTextField();
         txtIngresarEvento_personal = new javax.swing.JTextField();
-        txtIngresarEvento_inicio = new javax.swing.JTextField();
-        txtIngresarEvento_termino = new javax.swing.JTextField();
         cboIngresarEvento_ciudad = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cboAnoInicio = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
+        cboMesInicio = new javax.swing.JComboBox<>();
+        cboHoraInicio = new javax.swing.JComboBox<>();
+        jLabel22 = new javax.swing.JLabel();
+        cboMinutoInicio = new javax.swing.JComboBox<>();
+        jLabel21 = new javax.swing.JLabel();
+        cboDiaInicio = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        cboAnoFin = new javax.swing.JComboBox<>();
+        jLabel25 = new javax.swing.JLabel();
+        cboMesFin = new javax.swing.JComboBox<>();
+        cboHoraFin = new javax.swing.JComboBox<>();
+        jLabel27 = new javax.swing.JLabel();
+        cboMinutoFin = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
+        cboDiaFin = new javax.swing.JComboBox<>();
+        jLabel24 = new javax.swing.JLabel();
         JF_Admin = new javax.swing.JFrame();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -139,7 +149,6 @@ public class App extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblIcono = new javax.swing.JLabel();
-        lblEstadoConexion = new javax.swing.JLabel();
 
         JF_Empresa.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         JF_Empresa.setResizable(false);
@@ -155,10 +164,6 @@ public class App extends javax.swing.JFrame {
 
         jLabel7.setText("Nº Solicitado :");
 
-        jLabel8.setText("Hº de Inicio :");
-
-        jLabel9.setText("Hº de fin :");
-
         btnEECrear.setText("Crear");
         btnEECrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,23 +175,58 @@ public class App extends javax.swing.JFrame {
 
         txtIngresarEvento_personal.setText("15");
 
-        txtIngresarEvento_inicio.setText("26/10/18 10:34:09");
+        jLabel8.setText("Inicio :");
 
-        txtIngresarEvento_termino.setText("26/10/18 19:34:09");
-        txtIngresarEvento_termino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIngresarEvento_terminoActionPerformed(evt);
-            }
-        });
+        jLabel4.setText("Año :");
+
+        cboAnoInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "18", "19", "20", "21", "22", "23", "24", "25", "26" }));
+
+        jLabel19.setText("Mes :");
+
+        cboMesInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        cboHoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+
+        jLabel22.setText(":");
+
+        cboMinutoInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+
+        jLabel21.setText("Hora : ");
+
+        cboDiaInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        jLabel20.setText("Dia :");
+
+        jLabel9.setText("Fin :");
+
+        jLabel23.setText("Año :");
+
+        cboAnoFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "18", "19", "20", "21", "22", "23", "24", "25", "26" }));
+
+        jLabel25.setText("Mes :");
+
+        cboMesFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        cboHoraFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+
+        jLabel27.setText(":");
+
+        cboMinutoFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+
+        jLabel26.setText("Hora : ");
+
+        cboDiaFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        jLabel24.setText("Dia :");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(164, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEECrear)
-                .addGap(143, 143, 143))
+                .addGap(145, 145, 145))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,11 +238,8 @@ public class App extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtIngresarEvento_personal, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtIngresarEvento_inicio, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                                    .addComponent(txtIngresarEvento_termino))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(txtIngresarEvento_personal, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 222, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,8 +248,52 @@ public class App extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
+                            .addComponent(jLabel9)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(cboAnoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(159, 159, 159)
+                                .addComponent(jLabel19)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel8)
-                            .addComponent(jLabel9))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(cboDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel20)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(159, 159, 159)
+                                .addComponent(jLabel21)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cboHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboMinutoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(cboAnoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel23)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(159, 159, 159)
+                                .addComponent(jLabel25)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(cboDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel24)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(159, 159, 159)
+                                .addComponent(jLabel26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cboHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboMinutoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -233,17 +314,41 @@ public class App extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtIngresarEvento_personal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtIngresarEvento_inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel4)
+                    .addComponent(cboAnoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
+                    .addComponent(cboMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtIngresarEvento_termino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addComponent(jLabel20)
+                    .addComponent(cboDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)
+                    .addComponent(cboHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22)
+                    .addComponent(cboMinutoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(cboAnoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25)
+                    .addComponent(cboMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(cboDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26)
+                    .addComponent(cboHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27)
+                    .addComponent(cboMinutoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(btnEECrear)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout JF_EmpresaLayout = new javax.swing.GroupLayout(JF_Empresa.getContentPane());
@@ -259,8 +364,7 @@ public class App extends javax.swing.JFrame {
             JF_EmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JF_EmpresaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         JF_Admin.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -709,11 +813,12 @@ public class App extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnIngreso)
-                    .addComponent(txtLogin_email, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                    .addComponent(txtLogin_pass))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtLogin_email, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                        .addComponent(txtLogin_pass)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -736,35 +841,25 @@ public class App extends javax.swing.JFrame {
         lblIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/source/icono18.png"))); // NOI18N
         lblIcono.setText("-");
 
-        lblEstadoConexion.setText("Desconectado");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(lblIcono)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblEstadoConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(99, 99, 99)
+                .addComponent(lblIcono)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblEstadoConexion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -986,50 +1081,6 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblEventosDisponiblesMouseClicked
 
-    private void btnEECrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEECrearActionPerformed
-        try {
-            /*crearEvento*/
-            String direccion = txtIngresarEvento_direccion.getText();
-            String inicio = txtIngresarEvento_inicio.getText();
-            String termino = txtIngresarEvento_termino.getText();
-            int personal = Integer.parseInt(txtIngresarEvento_personal.getText());
-            
-            Ciudad ciudad = (Ciudad)cboIngresarEvento_ciudad.getSelectedItem();
-            int idciudad = ciudad.getId();
-            
-            IngresarEvento ingresar = new IngresarEvento(server, idciudad, usuario.getId(), inicio, termino, direccion, personal);
-            String url = ingresar.getUrl();
-            System.out.println(url);
-            
-            JespXML a = new JespXML(new URL(url));
-            Tag tagInfo = a.leerXML();
-            
-            Tag tg_mensaje = tagInfo.getTagHijoByName("mensaje");
-            String mensaje = tg_mensaje.getContenido();
-                    
-            JOptionPane.showMessageDialog(this, mensaje, "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        } catch (SAXException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        } catch (TagHijoNotFoundException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnEECrearActionPerformed
-
-    private void txtIngresarEvento_terminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIngresarEvento_terminoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIngresarEvento_terminoActionPerformed
-
     private void tblEventosIniciadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEventosIniciadosMouseClicked
         try {
             int fila = tblEventosIniciados.getSelectedRow();
@@ -1071,6 +1122,62 @@ public class App extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
         }  
     }//GEN-LAST:event_tblEventosIniciadosMouseClicked
+
+    private void btnEECrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEECrearActionPerformed
+        try {
+            /*crearEvento*/
+            String direccion = txtIngresarEvento_direccion.getText();
+            String anoInicio;
+            anoInicio = (String) cboAnoInicio.getSelectedItem();
+            String mesInicio = (String) cboMesInicio.getSelectedItem();
+            String diaInicio = (String) cboDiaInicio.getSelectedItem();
+            String horaInicio = (String) cboHoraInicio.getSelectedItem();
+            String minutoInicio = (String) cboMinutoInicio.getSelectedItem();
+            
+            String anofin = (String) cboAnoFin.getSelectedItem();
+            String mesfin = (String) cboMesFin.getSelectedItem();
+            String diafin = (String) cboDiaFin.getSelectedItem();
+            String horafin = (String) cboHoraFin.getSelectedItem();
+            String minutofin = (String) cboMinutoFin.getSelectedItem();
+            
+            String combinicionIn = diaInicio+"/"+mesInicio+"/"+anoInicio+" "+horaInicio+":"+minutoInicio+":00";
+            String combinicionFin = diafin+"/"+mesfin+"/"+anofin+" "+horafin+":"+minutofin+":00";
+            
+            String inicio = combinicionIn;
+            String termino = combinicionFin;
+            int personal = Integer.parseInt(txtIngresarEvento_personal.getText());
+            
+            Ciudad ciudad = (Ciudad)cboIngresarEvento_ciudad.getSelectedItem();
+            int idciudad = ciudad.getId();
+            
+            IngresarEvento ingresar = new IngresarEvento(server, idciudad, usuario.getId(), inicio, termino, direccion, personal);
+            String url = ingresar.getUrl();
+            System.out.println(url);
+            
+            JespXML a = new JespXML(new URL(url));
+            Tag tagInfo = a.leerXML();
+            
+            Tag tg_mensaje = tagInfo.getTagHijoByName("mensaje");
+            String mensaje = tg_mensaje.getContenido();
+                    
+            JOptionPane.showMessageDialog(this, mensaje, "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (SAXException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (TagHijoNotFoundException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEECrearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1144,7 +1251,17 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton btnFinDeEvento;
     private javax.swing.JButton btnIngreso;
     private javax.swing.JButton btnSuscribir;
+    private javax.swing.JComboBox<String> cboAnoFin;
+    private javax.swing.JComboBox<String> cboAnoInicio;
+    private javax.swing.JComboBox<String> cboDiaFin;
+    private javax.swing.JComboBox<String> cboDiaInicio;
+    private javax.swing.JComboBox<String> cboHoraFin;
+    private javax.swing.JComboBox<String> cboHoraInicio;
     private javax.swing.JComboBox<Ciudad> cboIngresarEvento_ciudad;
+    private javax.swing.JComboBox<String> cboMesFin;
+    private javax.swing.JComboBox<String> cboMesInicio;
+    private javax.swing.JComboBox<String> cboMinutoFin;
+    private javax.swing.JComboBox<String> cboMinutoInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1155,8 +1272,18 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1178,7 +1305,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JLabel lblEstadoConexion;
     private javax.swing.JLabel lblIcono;
     private javax.swing.JList<String> listAInscritos;
     private javax.swing.JList<String> listAsistio;
@@ -1195,9 +1321,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTextField txtEventoDisponible_Termino;
     private javax.swing.JTextField txtEventoDisponible_empresa;
     private javax.swing.JTextField txtIngresarEvento_direccion;
-    private javax.swing.JTextField txtIngresarEvento_inicio;
     private javax.swing.JTextField txtIngresarEvento_personal;
-    private javax.swing.JTextField txtIngresarEvento_termino;
     private javax.swing.JTextField txtLogin_email;
     private javax.swing.JPasswordField txtLogin_pass;
     // End of variables declaration//GEN-END:variables
@@ -1209,35 +1333,6 @@ public class App extends javax.swing.JFrame {
     }
 
     private void cargarIconos() {
-        
-    }
-
-    private void conectar() throws TagHijoNotFoundException {
-        lblEstadoConexion.setForeground(Color.red);
-        
-        try {
-            Conectar con = new Conectar(server);
-            String url = con.getUrl();
-            
-            System.out.println(url);
-            
-            JespXML a = new JespXML(new URL(url));
-            Tag tagInfo = a.leerXML();
-            Tag tagID = tagInfo.getTagHijoByName("conexion");
-            
-            if(tagID.getContenido().equals("Conectado")){
-                lblEstadoConexion.setText(tagID.getContenido());
-                lblEstadoConexion.setForeground(Color.GREEN);
-            }
-            
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         
     }
 }
