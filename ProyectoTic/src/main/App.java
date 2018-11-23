@@ -61,6 +61,7 @@ public class App extends javax.swing.JFrame {
         cargarTablaEventos(DISPONIBLES);
         cargarTablaEventos(INICIADOS);
         cargarCiudades();
+        cargarEmpresa();
         listAInscritos.setModel(modeloLista);
     }
 
@@ -189,6 +190,7 @@ public class App extends javax.swing.JFrame {
         jLabel19.setText("Mes :");
 
         cboMesInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        cboMesInicio.setSelectedItem(11);
 
         cboHoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
 
@@ -806,7 +808,7 @@ public class App extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        txtLogin_email.setText("email@supervisor.cl");
+        txtLogin_email.setText("email@empresa.cl");
         txtLogin_email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLogin_emailActionPerformed(evt);
@@ -993,7 +995,8 @@ public class App extends javax.swing.JFrame {
                 case (2):
                     JF_Empresa.pack();
                     JF_Empresa.setLocationRelativeTo(null);
-                    JF_Empresa.setVisible(true);                      
+                    JF_Empresa.setVisible(true);     
+                    
                     break;
                 case (3):   
                     JF_Supervisor.pack();
@@ -1142,6 +1145,8 @@ public class App extends javax.swing.JFrame {
             
             IngresarEvento ingresar = new IngresarEvento(server, idciudad, usuario.getId(), inicio, termino, direccion, personal);
             String url = ingresar.getUrl();
+            url = url.replace(' ', '$');
+            
             System.out.println(url);
             
             JespXML a = new JespXML(new URL(url));
@@ -1152,20 +1157,25 @@ public class App extends javax.swing.JFrame {
                     
             JOptionPane.showMessageDialog(this, mensaje, "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         } catch (MalformedURLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
         } catch (SAXException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
         } catch (TagHijoNotFoundException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btnEECrearActionPerformed
 
@@ -1460,5 +1470,19 @@ public class App extends javax.swing.JFrame {
         } catch (Exception ex){
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
         }                  
+    }
+
+    private void cargarEmpresa() {
+        cboAnoInicio.setSelectedItem(2018);
+        cboMesInicio.setSelectedItem(11);
+        cboDiaInicio.setSelectedItem(23);
+        cboHoraInicio.setSelectedItem(16);
+        cboMinutoInicio.setSelectedItem(0);
+        
+        cboAnoFin.setSelectedItem(2018);
+        cboMesFin.setSelectedItem(11);
+        cboDiaFin.setSelectedItem(23);
+        cboHoraFin.setSelectedItem(18);
+        cboMinutoFin.setSelectedItem(0);
     }
 }

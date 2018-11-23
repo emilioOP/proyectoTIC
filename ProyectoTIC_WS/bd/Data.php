@@ -43,7 +43,7 @@ class Data{
     }
 
     public function IngresarEvento($id_ciudad, $id_usuario, $inicio_evento, $termino_evento, $direccion, $cantidad_personal){
-        $query="call ingresarEvento (".$id_ciudad.", ".$id_usuario.", '".$inicio_evento."', '".$termino_evento."', '".$direccion."', ".$cantidad_personal.");";
+        $query="call ingresarEvento(".$id_ciudad.", ".$id_usuario.", '".$inicio_evento."', '".$termino_evento."', '".$direccion."', ".$cantidad_personal.")";
         $rs=$this->c->ejecutar($query);
 
         if($reg = mysqli_fetch_array($rs)){

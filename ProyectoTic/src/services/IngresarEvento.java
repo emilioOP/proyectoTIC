@@ -20,7 +20,8 @@ public class IngresarEvento {
             String inicio, 
             String termino, 
             String direccion, 
-            int cantidad_personal)
+            int cantidad_personal
+    )
     {
         this.url = server+"/"+controller+"?"
                 + "id_ciudad="+id_ciudad+"&"
@@ -32,6 +33,7 @@ public class IngresarEvento {
     }
     
     public String getUrl() {
+        
         return url;
     }       
 }

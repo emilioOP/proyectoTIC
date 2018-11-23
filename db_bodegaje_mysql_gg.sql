@@ -124,7 +124,12 @@ create procedure ingresarEvento(v_id_ciudad int ,v_id_usuario int, v_inicio date
 			-- inicializar variable organizador
 			select id from tbl_organizador where id_usuario = v_id_usuario into v_id_organizador;
             
-			-- ingresar evento
+			-- depurar entradas
+            set v_inicio = REPLACE(v_inicio,'$',' ');
+            set v_termino = REPLACE(v_termino,'$',' ');
+            set v_direccion = REPLACE(v_inicio,'$',' ');
+            
+            -- ingresar evento
 			insert into tbl_evento(
 				id_ciudad, id_organizador, inicio_evento, termino_evento, direccion, cantidad_personal) 
 			values(
@@ -379,12 +384,12 @@ create procedure ingresarAsistencia(v_id_evento int, v_id_trabajador int)
     end;
 //delimiter ;
 
-call ingresarEvento (1, 2, '2018/11/23 2:10:00', '2018/11/23 8:12:00', 'Calle falsa #123', 15);
-call ingresarEvento (1, 2, '2018/11/23 00:30:00', '2018/11/23 8:12:00', 'Calle falsa #123', 15);
-call ingresarEvento (1, 2, '2018/11/23 10:30:00', '2018/11/23 12:12:00', 'Calle nueva #123', 15);
+-- call ingresarEvento (1, 2, '2018/11/23 2:10:00', '2018/11/23 8:12:00', 'Calle falsa #123', 15);
+-- call ingresarEvento (1, 2, '2018/11/23 00:30:00', '2018/11/23 8:12:00', 'Calle falsa #123', 15);
+-- call ingresarEvento (1, 2, '2018/11/23 10:30:00', '2018/11/23 12:12:00', 'Calle nueva #123', 15);
 
 -- usuario / evento
-call suscribirEvt(4,3);
+-- call suscribirEvt(4,3);
 
 call listarEventosDisponibles;
 call listarEventosIniciados;
@@ -394,6 +399,7 @@ call getEventosSuscritosByTrabajador(4);
 -- evento /asistido
 call listarTrabajadoresSuscritos (3,0);
 
--- call ingresarAsistencia(1,4);
+-- evento / trabajador
+-- call ingresarAsistencia(3,4);	
 
 call listarEventosPorEmpresa(2);
