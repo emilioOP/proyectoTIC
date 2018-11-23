@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -61,7 +62,6 @@ public class App extends javax.swing.JFrame {
         cargarTablaEventos(DISPONIBLES);
         cargarTablaEventos(INICIADOS);
         cargarCiudades();
-        cargarEmpresa();
         listAInscritos.setModel(modeloLista);
     }
 
@@ -106,6 +106,8 @@ public class App extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         cboDiaFin = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
+        btnHoy_inicio = new javax.swing.JButton();
+        btnHoy_termino = new javax.swing.JButton();
         JF_Admin = new javax.swing.JFrame();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -156,8 +158,10 @@ public class App extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblIcono = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
 
         JF_Empresa.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JF_Empresa.setTitle("Modulo Empresa");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Ingresar Evento"));
 
@@ -226,6 +230,17 @@ public class App extends javax.swing.JFrame {
 
         jLabel24.setText("Dia :");
 
+        btnHoy_inicio.setText("HOY");
+        btnHoy_inicio.setEnabled(false);
+        btnHoy_inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHoy_inicioActionPerformed(evt);
+            }
+        });
+
+        btnHoy_termino.setText("HOY");
+        btnHoy_termino.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -255,17 +270,12 @@ public class App extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel9)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(cboAnoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel4)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(159, 159, 159)
                                 .addComponent(jLabel19)
                                 .addGap(18, 18, 18)
                                 .addComponent(cboMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel8)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(85, 85, 85)
                                 .addComponent(cboDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -279,9 +289,6 @@ public class App extends javax.swing.JFrame {
                                 .addComponent(jLabel22)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cboMinutoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(cboAnoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel23)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(159, 159, 159)
@@ -300,7 +307,19 @@ public class App extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel27)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboMinutoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cboMinutoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(53, 53, 53)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnHoy_inicio)
+                                    .addComponent(cboAnoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(64, 64, 64)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnHoy_termino)
+                                    .addComponent(cboAnoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -322,7 +341,9 @@ public class App extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtIngresarEvento_personal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(btnHoy_inicio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -338,7 +359,9 @@ public class App extends javax.swing.JFrame {
                     .addComponent(jLabel22)
                     .addComponent(cboMinutoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel9)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9)
+                    .addComponent(btnHoy_termino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
@@ -353,7 +376,7 @@ public class App extends javax.swing.JFrame {
                     .addComponent(cboHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27)
                     .addComponent(cboMinutoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEECrear)
                 .addContainerGap())
         );
@@ -375,6 +398,7 @@ public class App extends javax.swing.JFrame {
         );
 
         JF_Admin.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JF_Admin.setTitle("Modulo Administrador");
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Estado de los eventos"));
 
@@ -507,6 +531,7 @@ public class App extends javax.swing.JFrame {
         );
 
         JF_Supervisor.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JF_Supervisor.setTitle("Modulo Supervisor");
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Eventos Iniciados"));
 
@@ -645,6 +670,7 @@ public class App extends javax.swing.JFrame {
         );
 
         JF_Trabajador.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JF_Trabajador.setTitle("Modulo Trabajador");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -804,6 +830,7 @@ public class App extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio de Sesion");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -870,25 +897,36 @@ public class App extends javax.swing.JFrame {
         lblIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/source/icono18.png"))); // NOI18N
         lblIcono.setText("-");
 
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel28.setText("Bienvenido a iBodega");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel28))
+                            .addComponent(lblIcono))
+                        .addGap(0, 89, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(lblIcono)
-                .addContainerGap(99, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(lblIcono)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -1219,6 +1257,10 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbl_Trabajadores_SuscritosMouseReleased
 
+    private void btnHoy_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoy_inicioActionPerformed
+        cargarEmpresa();
+    }//GEN-LAST:event_btnHoy_inicioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1289,6 +1331,8 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton btnAsistencia;
     private javax.swing.JButton btnEECrear;
     private javax.swing.JButton btnFinDeEvento;
+    private javax.swing.JButton btnHoy_inicio;
+    private javax.swing.JButton btnHoy_termino;
     private javax.swing.JButton btnIngreso;
     private javax.swing.JButton btnSuscribir;
     private javax.swing.JComboBox<String> cboAnoFin;
@@ -1322,6 +1366,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1473,16 +1518,21 @@ public class App extends javax.swing.JFrame {
     }
 
     private void cargarEmpresa() {
-        cboAnoInicio.setSelectedItem(2018);
-        cboMesInicio.setSelectedItem(11);
-        cboDiaInicio.setSelectedItem(23);
-        cboHoraInicio.setSelectedItem(16);
-        cboMinutoInicio.setSelectedItem(0);
+        try {
+           cboAnoInicio.setSelectedIndex(ZonedDateTime.now().getYear());
+            cboMesInicio.setSelectedIndex(ZonedDateTime.now().getMonthValue());
+            cboDiaInicio.setSelectedIndex(ZonedDateTime.now().getDayOfMonth());
+            cboHoraInicio.setSelectedIndex(ZonedDateTime.now().getHour());
+            cboMinutoInicio.setSelectedIndex(ZonedDateTime.now().getMinute());
         
-        cboAnoFin.setSelectedItem(2018);
-        cboMesFin.setSelectedItem(11);
-        cboDiaFin.setSelectedItem(23);
-        cboHoraFin.setSelectedItem(18);
-        cboMinutoFin.setSelectedItem(0);
+        cboAnoFin.setSelectedIndex(2018);
+        cboMesFin.setSelectedIndex(11);
+        cboDiaFin.setSelectedIndex(23);
+        cboHoraFin.setSelectedIndex(18);
+        cboMinutoFin.setSelectedIndex(0); 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
     }
 }

@@ -127,7 +127,7 @@ create procedure ingresarEvento(v_id_ciudad int ,v_id_usuario int, v_inicio date
 			-- depurar entradas
             set v_inicio = REPLACE(v_inicio,'$',' ');
             set v_termino = REPLACE(v_termino,'$',' ');
-            set v_direccion = REPLACE(v_inicio,'$',' ');
+            set v_direccion = REPLACE(v_direccion,'$',' ');
             
             -- ingresar evento
 			insert into tbl_evento(
@@ -393,6 +393,7 @@ create procedure ingresarAsistencia(v_id_evento int, v_id_trabajador int)
 
 call listarEventosDisponibles;
 call listarEventosIniciados;
+-- select * from tbl_evento
 
 call getEventosSuscritosByTrabajador(4);
 

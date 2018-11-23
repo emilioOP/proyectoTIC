@@ -33,7 +33,6 @@ public class IngresarEvento {
     }
     
     public String getUrl() {
-        
         return url;
     }       
 }
