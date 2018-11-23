@@ -1,0 +1,13 @@
+
+<listar>
+    <entradas>
+        <fecha>2016-06-22 08:19:26</fecha>
+        <titulo>Lo mejor que me ha pasado</titulo>
+        <texto>fue sacarle las rueditas a mi bicicleta</texto>
+    </entradas>
+    <entradas>
+        <fecha>2016-06-23 00:00:00</fecha>
+        <titulo>Hola mundo</titulo>
+        <texto>Soy una entrada</texto>
+    </entradas>
+</listar>
