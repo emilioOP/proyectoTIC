@@ -42,7 +42,7 @@ import tableModel.TM_Eventos;
  * @author DiegoDX
  */
 public class App extends javax.swing.JFrame {
-    private String url = "localhost";
+    private String url = "200.120.230.3";
     private String server = "http://"+url+":80/proyectoTIC/ProyectoTIC_WS/controller";
     private final int DISPONIBLES = 1;
     private final int INICIADOS = 2;
