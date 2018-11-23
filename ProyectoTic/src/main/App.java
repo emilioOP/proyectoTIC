@@ -37,7 +37,9 @@ import services.ListadoTrabajadores;
 import services.ListarEventos;
 import services.ListarTrabajadoresSuscritos;
 import services.SuscribirEvento;
+import services.TomarAsistencia;
 import tableModel.TM_Eventos;
+import tableModel.TM_Usuarios;
 
 /**
  *
@@ -123,12 +125,12 @@ public class App extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblEventosIniciados = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        listTrabajador = new javax.swing.JList<>();
         btnAsistencia = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        listPresentes = new javax.swing.JList<>();
         btnFinDeEvento = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tbl_Trabajadores_Suscritos = new javax.swing.JTable();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tbl_Trabajadores_Asistentes = new javax.swing.JTable();
         JF_Trabajador = new javax.swing.JFrame();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -530,8 +532,8 @@ public class App extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -543,60 +545,80 @@ public class App extends javax.swing.JFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Toma De Asistencia"));
 
-        listTrabajador.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane5.setViewportView(listTrabajador);
-
         btnAsistencia.setText("Asistencia");
+        btnAsistencia.setEnabled(false);
         btnAsistencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAsistenciaActionPerformed(evt);
             }
         });
 
-        listPresentes.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane6.setViewportView(listPresentes);
-
         btnFinDeEvento.setText("Fin de Evento");
+        btnFinDeEvento.setEnabled(false);
+
+        tbl_Trabajadores_Suscritos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl_Trabajadores_Suscritos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbl_Trabajadores_SuscritosMouseReleased(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tbl_Trabajadores_Suscritos);
+
+        tbl_Trabajadores_Asistentes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane9.setViewportView(tbl_Trabajadores_Asistentes);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAsistencia)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(btnFinDeEvento)))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAsistencia)
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(297, 297, 297)
+                .addComponent(btnFinDeEvento)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(btnAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(btnAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnFinDeEvento)
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout JF_SupervisorLayout = new javax.swing.GroupLayout(JF_Supervisor.getContentPane());
@@ -605,10 +627,10 @@ public class App extends javax.swing.JFrame {
             JF_SupervisorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JF_SupervisorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(JF_SupervisorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(JF_SupervisorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         JF_SupervisorLayout.setVerticalGroup(
             JF_SupervisorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1087,45 +1109,8 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_tblEventosDisponiblesMouseClicked
 
     private void tblEventosIniciadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEventosIniciadosMouseClicked
-        try {
-            int fila = tblEventosIniciados.getSelectedRow();
-            int id_evento = Integer.parseInt(tblEventosIniciados.getValueAt(fila, 0).toString());
-            
-            //cargarUsuariosSuscritos
-            ListarTrabajadoresSuscritos suscritos = new ListarTrabajadoresSuscritos(server, id_evento, 0);
-            String url = suscritos.getUrl();
-            System.out.println(url);
-            
-            JespXML a = new JespXML(new URL(url));
-            Tag tagInfo = a.leerXML();
-            
-            Tag tg_id = tagInfo.getTagHijoByName("id");
-            Tag tg_nombre = tagInfo.getTagHijoByName("nombre");
-            Tag tg_apellido = tagInfo.getTagHijoByName("apellido");
-            
-            Usuario u = new Usuario(Integer.parseInt(tg_id.getContenido()), tg_nombre.getContenido(), tg_apellido.getContenido());
-            
-            ArrayList<Usuario> usuarios = new ArrayList<>();            
-            listTrabajador.setModel((ListModel<String>) usuarios);
-        } catch (MalformedURLException ex) {
-//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException ex) {
-//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        } catch (ParserConfigurationException ex) {
-//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        } catch (SAXException ex) {
-//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        } catch (TagHijoNotFoundException ex) {
-//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-//            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-                System.out.println(ex.getMessage());
-        } catch (Exception ex){
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
-        }  
+        cargarTrabajadoresSuscritos();
+        cargarTrabajadoresAsistentes();
     }//GEN-LAST:event_tblEventosIniciadosMouseClicked
 
     private void btnEECrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEECrearActionPerformed
@@ -1185,22 +1170,44 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEECrearActionPerformed
 
     private void btnAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsistenciaActionPerformed
-        int fila = tblEventosIniciados.getSelectedRow();
-        int id_evento = Integer.parseInt(tblEventosIniciados.getValueAt(fila, 0).toString());
-        ListarTrabajadoresSuscritos trabajadores = new ListarTrabajadoresSuscritos(server, id_evento, 0);
-        
-        String url = trabajadores.getUrl();
+        try {
+            int evento = tblEventosIniciados.getSelectedRow();
+            int trabajador = tbl_Trabajadores_Suscritos.getSelectedRow();
+            int id_evento = Integer.parseInt(tblEventosIniciados.getValueAt(evento, 0).toString());
+            int id_trabajador = Integer.parseInt(tbl_Trabajadores_Suscritos.getValueAt(trabajador, 0).toString());
+            
+            TomarAsistencia toma = new TomarAsistencia(server, id_trabajador, id_evento);
+            String url = toma.getUrl();
             System.out.println(url);
             
             JespXML a = new JespXML(new URL(url));
             Tag tagInfo = a.leerXML();
-        
-        String nom = " ",apell = " ";
-        int id = 0,id_permiso = 0;
-        
-        Usuario lUsuario = new Usuario(id, id_permiso, nom, apell);
-        modeloLista.addElement(lUsuario);
+            
+            Tag tg_mensaje = tagInfo.getTagHijoByName("mensaje");
+            String mensaje = tg_mensaje.getContenido();
+                    
+            JOptionPane.showMessageDialog(this, mensaje, "Confirmacion", JOptionPane.INFORMATION_MESSAGE);  
+            cargarTrabajadoresAsistentes();
+            cargarTrabajadoresSuscritos();            
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TagHijoNotFoundException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAsistenciaActionPerformed
+
+    private void tbl_Trabajadores_SuscritosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_Trabajadores_SuscritosMouseReleased
+        try {
+            // si hay algun trabajador
+            int fila = tbl_Trabajadores_Suscritos.getSelectedRow();
+            btnAsistencia.setEnabled(true);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_tbl_Trabajadores_SuscritosMouseReleased
 
     /**
      * @param args the command line arguments
@@ -1325,17 +1332,17 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel lblIcono;
     private javax.swing.JList<String> listAInscritos;
     private javax.swing.JList<String> listAsistio;
-    private javax.swing.JList<String> listPresentes;
-    private javax.swing.JList<String> listTrabajador;
     private javax.swing.JTable tblAdministrador;
     private javax.swing.JTable tblEventosDisponibles;
     private javax.swing.JTable tblEventosIniciados;
+    private javax.swing.JTable tbl_Trabajadores_Asistentes;
+    private javax.swing.JTable tbl_Trabajadores_Suscritos;
     private javax.swing.JTextField txtAEstado;
     private javax.swing.JTextField txtASupervisor;
     private javax.swing.JTextField txtEventoDisponible_Ciudad;
@@ -1357,5 +1364,101 @@ public class App extends javax.swing.JFrame {
 
     private void cargarIconos() {
         
+    }
+
+    private void cargarTrabajadoresSuscritos() {
+        try {
+            int fila = tblEventosIniciados.getSelectedRow();
+            int id_evento = Integer.parseInt(tblEventosIniciados.getValueAt(fila, 0).toString());
+            
+            //cargarUsuariosSuscritos
+            ListarTrabajadoresSuscritos suscritos = new ListarTrabajadoresSuscritos(server, id_evento, 0);
+            String url = suscritos.getUrl();
+            System.out.println(url);
+            
+            JespXML a = new JespXML(new URL(url));
+            Tag tagInfo = a.leerXML();
+            Tag tg_id, tg_nombre, tg_apellido;
+            ArrayList<Usuario> usuarios = new ArrayList<>(); 
+            
+            Usuario usuario;
+            for(Tag tag: tagInfo.getTagsHijos()){
+                tg_id = tag.getTagHijoByName("id");
+                tg_nombre = tag.getTagHijoByName("nombre");
+                tg_apellido = tag.getTagHijoByName("apellido");
+                usuario = new Usuario(Integer.parseInt(tg_id.getContenido()), tg_nombre.getContenido(), tg_apellido.getContenido());
+                usuarios.add(usuario);
+            }
+            
+        TM_Usuarios modelUsuarios = new TM_Usuarios(usuarios);
+        tbl_Trabajadores_Suscritos.setModel(modelUsuarios);
+        
+        } catch (MalformedURLException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (ParserConfigurationException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (SAXException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (TagHijoNotFoundException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+//            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+                System.out.println(ex.getMessage());
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        }          
+    }
+
+    private void cargarTrabajadoresAsistentes() {
+        try {
+            int fila = tblEventosIniciados.getSelectedRow();
+            int id_evento = Integer.parseInt(tblEventosIniciados.getValueAt(fila, 0).toString());
+            
+            //cargarUsuariosSuscritos
+            ListarTrabajadoresSuscritos suscritos = new ListarTrabajadoresSuscritos(server, id_evento, 1);
+            String url = suscritos.getUrl();
+            System.out.println(url);
+            
+            JespXML a = new JespXML(new URL(url));
+            Tag tagInfo = a.leerXML();
+            Tag tg_id, tg_nombre, tg_apellido;
+            ArrayList<Usuario> usuarios = new ArrayList<>(); 
+            
+            Usuario usuario;
+            for(Tag tag: tagInfo.getTagsHijos()){
+                tg_id = tag.getTagHijoByName("id");
+                tg_nombre = tag.getTagHijoByName("nombre");
+                tg_apellido = tag.getTagHijoByName("apellido");
+                usuario = new Usuario(Integer.parseInt(tg_id.getContenido()), tg_nombre.getContenido(), tg_apellido.getContenido());
+                usuarios.add(usuario);
+            }
+            
+        TM_Usuarios modelUsuarios = new TM_Usuarios(usuarios);
+        tbl_Trabajadores_Asistentes.setModel(modelUsuarios);
+        
+        } catch (MalformedURLException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (ParserConfigurationException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (SAXException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        } catch (TagHijoNotFoundException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+//            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+                System.out.println(ex.getMessage());
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
+        }                  
     }
 }

@@ -12,10 +12,10 @@ package services;
 public class TomarAsistencia {
     
     private String url;
-    private String controller = "TomarAsistencia.php";
+    private String controller = "ingresarAsistencia.php";
     
     public TomarAsistencia(String server,int idU,int idE){
-        this.url = server+"/"+controller+"&id_usuario="+idU+"&id_evento="+idE+"";
+        this.url = server+"/"+controller+"?id_usuario="+idU+"&id_evento="+idE+"";
     }
     
     public String getUrl() {

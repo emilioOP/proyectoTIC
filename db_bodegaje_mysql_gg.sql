@@ -291,7 +291,7 @@ delimiter //
 create procedure listarTrabajadoresSuscritos (v_id_evento int, v_asistido int)
 	begin
 		select 
-			id as 'ID', 
+			id as 'ID_Trabajador', 
 			nombre as 'Nombre',
             apellido as 'Apellido' 
 		from 
@@ -321,19 +321,17 @@ create procedure getEventosSuscritosByTrabajador(v_id_trabajador int)
 			tbl_evento.direccion as 'DIRECCION',
 			tbl_evento.inicio_evento as 'INICIO',
 			tbl_evento.termino_evento as 'TERMINO'
-        from tbl_evento
+        from tbl_evt_suscripcion
+			inner join tbl_evento on tbl_evento.id = tbl_evt_suscripcion.id_evento
 			inner join tbl_ciudad on tbl_ciudad.id = tbl_evento.id_ciudad
 			inner join tbl_organizador on tbl_organizador.id = tbl_evento.id_organizador
 			inner join tbl_empresa on tbl_empresa.id = tbl_organizador.id_empresa
         where 
-			-- evento activo
-			tbl_evento.activo = 1 
-            and tbl_evento.id in (
-				select id from tbl_evt_suscripcion 
-					where id_usuario = v_id_trabajador
-					-- suscripcion activa
-					and tbl_evt_suscripcion.activo = 1);
-			
+			tbl_evt_suscripcion.id_usuario = v_id_trabajador
+			-- suscripcion activa
+			and tbl_evt_suscripcion.activo = 1             
+            -- evento activo
+            and tbl_evento.activo = 1;
     end;
 //delimiter ;
 
@@ -383,13 +381,19 @@ create procedure ingresarAsistencia(v_id_evento int, v_id_trabajador int)
 
 call ingresarEvento (1, 2, '2018/11/23 2:10:00', '2018/11/23 8:12:00', 'Calle falsa #123', 15);
 call ingresarEvento (1, 2, '2018/11/23 00:30:00', '2018/11/23 8:12:00', 'Calle falsa #123', 15);
-call suscribirEvt(4,2);
-call desuscribirEvento(4,2);
-call getUsuario('email@supervisor.cl', '1234');
+call ingresarEvento (1, 2, '2018/11/23 10:30:00', '2018/11/23 12:12:00', 'Calle nueva #123', 15);
+
+-- usuario / evento
+call suscribirEvt(4,3);
 
 call listarEventosDisponibles;
 call listarEventosIniciados;
-call listarTrabajadoresSuscritos (2, 0);
+
 call getEventosSuscritosByTrabajador(4);
-call listarTrabajadoresSuscritos (2,0);
+
+-- evento /asistido
+call listarTrabajadoresSuscritos (3,0);
+
+-- call ingresarAsistencia(1,4);
+
 call listarEventosPorEmpresa(2);

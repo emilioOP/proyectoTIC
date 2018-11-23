@@ -2,9 +2,9 @@
   <?php
     require_once "../bd/Data.php";
     $id_evento=$_GET["id_evento"];
-    $id_trabajador=$_GET["id_trabajador"];
+    $id_usuario=$_GET["id_usuario"];
 
     $d= new Data();
-    $d ->ingresarAsistencia($id_evento, $id_trabajador);
+    $d ->ingresarAsistencia($id_evento, $id_usuario);
    ?>
 </body>
