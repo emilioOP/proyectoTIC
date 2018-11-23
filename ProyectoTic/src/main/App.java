@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -30,6 +31,7 @@ import org.jespxml.JespXML;
 import org.jespxml.excepciones.TagHijoNotFoundException;
 import org.jespxml.modelo.Tag;
 import org.xml.sax.SAXException;
+import services.Conectar;
 import services.IngresarEvento;
 import services.IniciarSesion;
 import services.ListarEventos;
@@ -53,6 +55,12 @@ public class App extends javax.swing.JFrame {
     public App() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        try {
+            conectar();
+        } catch (TagHijoNotFoundException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cargarTablaEventos(DISPONIBLES);
         cargarTablaEventos(INICIADOS);
         cargarCiudades();
@@ -131,6 +139,7 @@ public class App extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblIcono = new javax.swing.JLabel();
+        lblEstadoConexion = new javax.swing.JLabel();
 
         JF_Empresa.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -696,12 +705,11 @@ public class App extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnIngreso)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtLogin_email, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                        .addComponent(txtLogin_pass)))
+                    .addComponent(txtLogin_email, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                    .addComponent(txtLogin_pass))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -724,25 +732,35 @@ public class App extends javax.swing.JFrame {
         lblIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/source/icono18.png"))); // NOI18N
         lblIcono.setText("-");
 
+        lblEstadoConexion.setText("Desconectado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(lblIcono)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(lblIcono)
-                .addContainerGap(99, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblEstadoConexion, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(136, 136, 136))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEstadoConexion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -1156,6 +1174,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JLabel lblEstadoConexion;
     private javax.swing.JLabel lblIcono;
     private javax.swing.JList<String> listAInscritos;
     private javax.swing.JList<String> listAsistio;
@@ -1186,6 +1205,35 @@ public class App extends javax.swing.JFrame {
     }
 
     private void cargarIconos() {
+        
+    }
+
+    private void conectar() throws TagHijoNotFoundException {
+        lblEstadoConexion.setForeground(Color.red);
+        
+        try {
+            Conectar con = new Conectar(server);
+            String url = con.getUrl();
+            
+            System.out.println(url);
+            
+            JespXML a = new JespXML(new URL(url));
+            Tag tagInfo = a.leerXML();
+            Tag tagID = tagInfo.getTagHijoByName("conexion");
+            
+            if(tagID.getContenido().equals("Conectado")){
+                lblEstadoConexion.setText(tagID.getContenido());
+                lblEstadoConexion.setForeground(Color.GREEN);
+            }
+            
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }
 }
