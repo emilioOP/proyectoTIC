@@ -157,10 +157,36 @@ class Data{
     public function deSuscribirEvento($id_usuario, $id_evento){
       $query="call suscribirEvt(".$id_usuario.", ".$id_evento.")";
       $rs=$this->c->ejecutar($query);
-      
+
       echo "<mensaje>";
          echo "Suscripcion anulada";
       echo "</mensaje>";
+    }
+
+    public function listarEventosPorEmpresa($id_usuario){
+      $query = "call listarEventosPorEmpresa (".$id_usuario.")";
+      $rs = $this->c->ejecutar($query);
+      while($reg= mysqli_fetch_array($rs)){
+        echo "<evento>";
+          echo "<id>";
+             echo $reg[0];
+          echo "</id>";
+          echo "<empresa>";
+             echo $reg[1];
+          echo "</empresa>";
+          echo "<ciudad>";
+             echo $reg[2];
+          echo "</ciudad>";
+          echo "<direccion>";
+             echo $reg[3];
+          echo "</direccion>";
+          echo "<inicio>";
+             echo $reg[4];
+          echo "</inicio>";
+          echo "<termino>";
+             echo $reg[5];
+          echo "</termino>";
+        echo "</evento>";
     }
 
 }
