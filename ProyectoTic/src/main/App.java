@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.DateTimeStringConverter;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -32,6 +33,7 @@ import org.jespxml.modelo.Tag;
 import org.xml.sax.SAXException;
 import services.IngresarEvento;
 import services.IniciarSesion;
+import services.ListadoTrabajadores;
 import services.ListarEventos;
 import services.ListarTrabajadoresSuscritos;
 import services.SuscribirEvento;
@@ -47,6 +49,7 @@ public class App extends javax.swing.JFrame {
     private final int DISPONIBLES = 1;
     private final int INICIADOS = 2;
     private Usuario usuario;
+    DefaultListModel modeloLista = new DefaultListModel();
     /**
      * Creates new form Inicio
      */
@@ -56,6 +59,7 @@ public class App extends javax.swing.JFrame {
         cargarTablaEventos(DISPONIBLES);
         cargarTablaEventos(INICIADOS);
         cargarCiudades();
+        listAInscritos.setModel(modeloLista);
     }
 
     /**
@@ -547,6 +551,11 @@ public class App extends javax.swing.JFrame {
         jScrollPane5.setViewportView(listTrabajador);
 
         btnAsistencia.setText("Asistencia");
+        btnAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsistenciaActionPerformed(evt);
+            }
+        });
 
         listPresentes.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -1174,6 +1183,24 @@ public class App extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Confirmacion", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEECrearActionPerformed
+
+    private void btnAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsistenciaActionPerformed
+        int fila = tblEventosIniciados.getSelectedRow();
+        int id_evento = Integer.parseInt(tblEventosIniciados.getValueAt(fila, 0).toString());
+        ListarTrabajadoresSuscritos trabajadores = new ListarTrabajadoresSuscritos(server, id_evento, 0);
+        
+        String url = trabajadores.getUrl();
+            System.out.println(url);
+            
+            JespXML a = new JespXML(new URL(url));
+            Tag tagInfo = a.leerXML();
+        
+        String nom = " ",apell = " ";
+        int id = 0,id_permiso = 0;
+        
+        Usuario lUsuario = new Usuario(id, id_permiso, nom, apell);
+        modeloLista.addElement(lUsuario);
+    }//GEN-LAST:event_btnAsistenciaActionPerformed
 
     /**
      * @param args the command line arguments
