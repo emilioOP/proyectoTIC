@@ -151,7 +151,6 @@ public class App extends javax.swing.JFrame {
         lblIcono = new javax.swing.JLabel();
 
         JF_Empresa.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        JF_Empresa.setResizable(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Ingresar Evento"));
 
@@ -179,13 +178,13 @@ public class App extends javax.swing.JFrame {
 
         jLabel4.setText("Año :");
 
-        cboAnoInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "18", "19", "20", "21", "22", "23", "24", "25", "26" }));
+        cboAnoInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026" }));
 
         jLabel19.setText("Mes :");
 
         cboMesInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        cboHoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        cboHoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
 
         jLabel22.setText(":");
 
@@ -201,13 +200,13 @@ public class App extends javax.swing.JFrame {
 
         jLabel23.setText("Año :");
 
-        cboAnoFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "18", "19", "20", "21", "22", "23", "24", "25", "26" }));
+        cboAnoFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026" }));
 
         jLabel25.setText("Mes :");
 
         cboMesFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        cboHoraFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        cboHoraFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
 
         jLabel27.setText(":");
 
@@ -368,7 +367,6 @@ public class App extends javax.swing.JFrame {
         );
 
         JF_Admin.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        JF_Admin.setResizable(false);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Estado de los eventos"));
 
@@ -501,7 +499,6 @@ public class App extends javax.swing.JFrame {
         );
 
         JF_Supervisor.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        JF_Supervisor.setResizable(false);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Eventos Iniciados"));
 
@@ -615,7 +612,6 @@ public class App extends javax.swing.JFrame {
         );
 
         JF_Trabajador.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        JF_Trabajador.setResizable(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1140,8 +1136,8 @@ public class App extends javax.swing.JFrame {
             String horafin = (String) cboHoraFin.getSelectedItem();
             String minutofin = (String) cboMinutoFin.getSelectedItem();
             
-            String combinicionIn = diaInicio+"/"+mesInicio+"/"+anoInicio+" "+horaInicio+":"+minutoInicio+":00";
-            String combinicionFin = diafin+"/"+mesfin+"/"+anofin+" "+horafin+":"+minutofin+":00";
+            String combinicionIn = anoInicio+"/"+mesInicio+"/"+diaInicio+" "+horaInicio+":"+minutoInicio+":00";
+            String combinicionFin = anofin+"/"+mesfin+"/"+diafin+" "+horafin+":"+minutofin+":00";
             
             String inicio = combinicionIn;
             String termino = combinicionFin;

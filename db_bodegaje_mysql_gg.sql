@@ -340,13 +340,11 @@ create procedure getEventosSuscritosByTrabajador(v_id_trabajador int)
 delimiter // 
 create procedure desuscribirEvento(v_id_trabajador int, v_id_evento int)
 	begin
-		START TRANSACTION;
 		update tbl_evt_suscripcion set activo = 0 where 
+        -- select * from tbl_evt_suscripcion
         id_usuario = v_id_trabajador;
-		commit;
     end;
 //delimiter ;
-
 
 delimiter //
 create procedure listarEventosPorEmpresa(v_id_usuario int)
@@ -381,7 +379,6 @@ call getUsuario('email@supervisor.cl', '1234');
 
 call listarEventosDisponibles;
 call listarEventosIniciados;
+call listarTrabajadoresSuscritos (1, 0);
 call getEventosSuscritosByTrabajador(4);
 call listarTrabajadoresSuscritos (2,0);
-call desuscribirEvento(4,2);
-
