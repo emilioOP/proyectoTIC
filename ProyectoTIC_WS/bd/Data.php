@@ -187,7 +187,7 @@ class Data{
              echo $reg[5];
           echo "</termino>";
         echo "</evento>";
+      }
     }
-
 }
 ?>
