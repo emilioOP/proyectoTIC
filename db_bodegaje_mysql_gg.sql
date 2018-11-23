@@ -341,7 +341,6 @@ delimiter //
 create procedure desuscribirEvento(v_id_trabajador int, v_id_evento int)
 	begin
 		update tbl_evt_suscripcion set activo = 0 where 
-        -- select * from tbl_evt_suscripcion
         id_usuario = v_id_trabajador;
     end;
 //delimiter ;
@@ -353,8 +352,18 @@ create procedure listarEventosPorEmpresa(v_id_usuario int)
         -- inicializar id_organizador
         select id from tbl_organizador where id_usuario = v_id_usuario into v_id_organizador;
         
-        select * from tbl_evento 
-			where id_organizador = v_id_organizador and activo = 1;       
+		select
+			tbl_evento.id as 'ID_EVENTO_INGRESADO',
+			tbl_empresa.razon_social as 'EMPRESA',        
+			tbl_ciudad.ciudad as 'CIUDAD',
+			tbl_evento.direccion as 'DIRECCION',
+			tbl_evento.inicio_evento as 'INICIO',
+			tbl_evento.termino_evento as 'TERMINO'
+		from tbl_evento
+			inner join tbl_ciudad on tbl_ciudad.id = tbl_evento.id_ciudad
+			inner join tbl_organizador on tbl_organizador.id = tbl_evento.id_organizador
+			inner join tbl_empresa on tbl_empresa.id = tbl_organizador.id_empresa
+		where id_organizador = v_id_organizador and tbl_evento.activo = 1;       
     end;
 //delimiter ;
 
@@ -375,10 +384,12 @@ create procedure ingresarAsistencia(v_id_evento int, v_id_trabajador int)
 call ingresarEvento (1, 2, '2018/11/23 2:10:00', '2018/11/23 8:12:00', 'Calle falsa #123', 15);
 call ingresarEvento (1, 2, '2018/11/23 00:30:00', '2018/11/23 8:12:00', 'Calle falsa #123', 15);
 call suscribirEvt(4,2);
+call desuscribirEvento(4,2);
 call getUsuario('email@supervisor.cl', '1234');
 
 call listarEventosDisponibles;
 call listarEventosIniciados;
-call listarTrabajadoresSuscritos (1, 0);
+call listarTrabajadoresSuscritos (2, 0);
 call getEventosSuscritosByTrabajador(4);
 call listarTrabajadoresSuscritos (2,0);
+call listarEventosPorEmpresa(2);

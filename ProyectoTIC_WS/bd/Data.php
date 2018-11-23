@@ -189,5 +189,23 @@ class Data{
         echo "</evento>";
       }
     }
+
+    public function eliminarEvento($id_evento){
+      $query="call eliminarEvento(".$id_evento.")";
+      $rs=$this->c->ejecutar($query);
+
+      echo "<mensaje>";
+         echo "Evento eliminado";
+      echo "</mensaje>";
+    }
+
+    public function ingresarAsistencia($id_evento, $id_trabajador){
+      $query="call ingresarAsistencia(".$id_evento.", ".$id_trabajador.")";
+      $rs=$this->c->ejecutar($query);
+
+      echo "<mensaje>";
+         echo "Asistencia ingresada con exito";
+      echo "</mensaje>";
+    }
 }
 ?>
