@@ -5,6 +5,7 @@
     <Container class="javax.swing.JFrame" name="JF_Empresa">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="3"/>
+        <Property name="resizable" type="boolean" value="false"/>
       </Properties>
 
       <Layout>
@@ -204,6 +205,7 @@
     <Container class="javax.swing.JFrame" name="JF_Admin">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="3"/>
+        <Property name="resizable" type="boolean" value="false"/>
       </Properties>
 
       <Layout>
@@ -446,6 +448,7 @@
     <Container class="javax.swing.JFrame" name="JF_Supervisor">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="3"/>
+        <Property name="resizable" type="boolean" value="false"/>
       </Properties>
 
       <Layout>
@@ -656,6 +659,7 @@
     <Container class="javax.swing.JFrame" name="JF_Trabajador">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="3"/>
+        <Property name="resizable" type="boolean" value="false"/>
       </Properties>
 
       <Layout>

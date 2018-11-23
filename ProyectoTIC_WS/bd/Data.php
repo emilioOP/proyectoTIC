@@ -157,7 +157,18 @@ class Data{
     }
 
     public function deSuscribirEvento($id_usuario, $id_evento){
+      $query="call desuscribirEvento(".$id_usuario.", ".$id_evento.")";
+      $rs=$this->c->ejecutar($query);
 
+      if(!$reg = mysqli_error($rs)){
+          echo "<mensaje>";
+            echo "Error";
+          echo "</mensaje>";
+      }else{
+        echo "<mensaje>";
+          echo "ok";
+        echo "</mensaje>";
+      }
     }
 
 }

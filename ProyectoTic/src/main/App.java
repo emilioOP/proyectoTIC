@@ -142,6 +142,7 @@ public class App extends javax.swing.JFrame {
         lblEstadoConexion = new javax.swing.JLabel();
 
         JF_Empresa.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JF_Empresa.setResizable(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Ingresar Evento"));
 
@@ -263,6 +264,7 @@ public class App extends javax.swing.JFrame {
         );
 
         JF_Admin.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JF_Admin.setResizable(false);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Estado de los eventos"));
 
@@ -395,6 +397,7 @@ public class App extends javax.swing.JFrame {
         );
 
         JF_Supervisor.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JF_Supervisor.setResizable(false);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Eventos Iniciados"));
 
@@ -508,6 +511,7 @@ public class App extends javax.swing.JFrame {
         );
 
         JF_Trabajador.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JF_Trabajador.setResizable(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
